@@ -1,0 +1,10 @@
+FROM python:3.8.15-slim
+# FROM python:3.8
+
+COPY . /root/app
+WORKDIR /root/app
+
+RUN pip install --upgrade redis minio flask
+
+CMD ["python", "rest-server.py"]
+# CMD ["sleep", "1234m"]

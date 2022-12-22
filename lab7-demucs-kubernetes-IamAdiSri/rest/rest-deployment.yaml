@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rest-server
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      app: rest-server
+  template:
+    metadata:
+      labels:
+        app: rest-server
+    spec:
+      containers:
+      - name: rest-server
+        image: iamadisri/demucs-rest:latest
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+          - containerPort: 5000
+        env:
+          - name: MINIO_HOST
+            value: "minio"
+          - name: MINIO_PORT
+            value: "9000"
+          - name: MINIO_USER
+            value: "rootuser"
+          - name: MINIO_PASSWD
+            value: "rootpass123"
+          - name: REDIS_HOST
+            value: "redis"
+          - name: REDIS_PORT
+            value: "6379"
+          - name: "GET_HOSTS_FROM"
+            value: "dns"
